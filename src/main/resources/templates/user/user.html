@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Insert title here</title>
+</head>
+<body>
+	<h1 th:text="${#authentication.principal.authorities}"></h1>
+	<h1 sec:authentication="principal"></h1>
+	
+	<h1>Hello User!</h1>
+	<div sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_DBA')">
+	   Only admin and dba can see this! 
+	</div>	
+</body>
+</html>
