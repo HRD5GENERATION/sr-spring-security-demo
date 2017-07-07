@@ -33,6 +33,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 		auth.inMemoryAuthentication().withUser("user").password("user").roles("USER");		
 	}*/
 	
+	//TODO: Retrieve user's information with UserDetailService and using bCryptPasswordEncoder to encrypt password	
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
 	}
@@ -40,26 +41,26 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
+		//TODO: Enable by default.		
 		//http.csrf().disable();
-		
+
+		//TODO: Redirect user to login page if they're trying to access protected resources.
 		http.formLogin()
 			//.usernameParameter("username")
 			//.passwordParameter("password")
 			.loginPage("/login")
-			//.loginProcessingUrl("/login")
 			.successHandler(successHandler);
-			//.failureUrl("/login?error");
 		
+		//TODO: Let the user logout by '/logout'.		
 		http.logout()  
 			.logoutSuccessUrl("/")
 			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
-			//.deleteCookies("JSESSIONID")
-			//.invalidateHttpSession(true);
-		
+
+		//TODO: Triggered if the user try to access protecting resources while they're not logged in.
 		http.exceptionHandling()
 			.authenticationEntryPoint(authenticationEntryPoint);
-			//.accessDeniedPage("/access-denied");
 		
+		//TODO: Allow specific user with specific role to access the protected resources.
 		http.authorizeRequests()
 			.antMatchers("/admin/**").hasAnyRole("ADMIN")
 			.antMatchers("/dba/**").hasAnyRole("DBA", "ADMIN")

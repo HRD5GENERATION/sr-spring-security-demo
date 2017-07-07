@@ -40,16 +40,9 @@ public class User implements UserDetails{
 		this.roles = roles;
 	}
 	@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", status=" + status
-				+ ", roles=" + roles + "]";
-	}
-	
-	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return roles;
 	}
-	
 	@Override
 	public boolean isAccountNonExpired() {
 		return true;
@@ -74,5 +67,9 @@ public class User implements UserDetails{
 	public String getUsername() {
 		return username;
 	}
-	
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", password=" + "[Protected]" + ", status=" + status
+				+ ", roles=" + roles + "]";
+	}
 }
